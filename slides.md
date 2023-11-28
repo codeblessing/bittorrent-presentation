@@ -9,6 +9,7 @@ title: Distributed file sharing protocol
 background: resources/title-cover.jpg
 layout: cover
 hideInToc: true
+mdc: true
 ---
 
 # BitTorrent
@@ -119,6 +120,41 @@ In theory, every peer will become seed when it downloads all parts.
 If peer has good two-way bandwidth it can be 'partial' seed and share parts it already downloaded without downloading whole file. 
 
 <!-- TODO: It would be nice to have some animation presenting concept here. -->
+
+---
+title: Torrent network
+transition: slide-left
+---
+
+# Sharing file
+
+Having basic building blocks we can now describe full file sharing process.
+
+::v-click
+1. At first we have to start *tracker*.
+::v-click
+2. Next we create metadata (*.torrent*) file.
+::v-click
+3. Now we start our first *seed* (file origin) and send `announce` to the tracker.
+::v-click
+4. Peer wants to download file, so it sends `announce` message to the tracker and retrieves list of other peers (including *seed*).
+::v-click
+5. Downloading peer connects directly to seeding peers.
+::v-click
+6. After part has been downloaded it is integrity-checked on downloading peer.
+::v-click
+7. When all parts have been downloaded downloading peer sends announce to tracker and becomes seed.
+
+
+<!--
+1. Let's say our tracker will be listening on address `https://example.com/torrent/announce`
+2. '.torrent' files will be described shortly.
+3. Now everything is set up and we can start downloading files.
+4. Every peer has to 'self-assign' to tracker in order to retrieve peer list but it doesn't mean it shares anything at once.
+6. Integrity check is mandatory and client should never inform tracker it downloaded part without checking it's integrity first.
+7. This part is not mandatory but peers that only download (leechers) are totally worthless (even harmful) for network.
+-->
+
 
 ---
 theme: seriph
